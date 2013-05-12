@@ -1,13 +1,15 @@
 import sys, json, string, time, numpy as np
 
+# http://answers.google.com/answers/threadview?id=149284
+
 start = 0
 end = 1000
 
 # -------- utilities
 #twtfile = open('output.txt')
-twtfile = open('output2_fed.txt')
+twtfile = open('output2_fed1000.txt')
 tweets  = twtfile.readlines()
-tweets  = tweets[start:end]
+#tweets  = tweets[start:end]
 ntweets = len(tweets)
 dlim    = '\t'
 dt      = ('S20, i4')
@@ -70,10 +72,8 @@ for itweet in w:
 #            ""),mypunc)
 
     # -------- check for special case instances
-    """
     for i in xrange(len(wrd_spc)):
         sntsum[itweet] += snt_spc[i]*ttweet.count(wrd_spc[i])
-    """
 
     # -------- split the tweet
     ttweet = ttweet.split()
@@ -133,6 +133,14 @@ for itweet in w:
 """
 for i in w: print("%1.1f"%sntsum[i])
 """
-
+"""
 for i in absent.iterkeys(): print("{0}:{1:1.6f}".format(i, absent[i][0]))
+"""
 
+# -------- get the total occurance of all words
+wrdtot = 0L
+for i in wrdcnt.keys(): wrdtot += wrdcnt[i]
+
+for i in sorted(wrdcnt.keys()):
+    print("{0} {1} {2} {3}".format(i,wrdcnt[i],wrdtot, 
+                                   float(wrdcnt[i])/float(wrdtot)))
